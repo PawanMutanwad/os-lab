@@ -22,23 +22,21 @@ public class malloc_firstfit {
             processSize[i] = sc.nextInt();
         }
 
-        int[] allocation = new int[n];  // stores block number for each process
+        int[] allocation = new int[n];
         for (int i = 0; i < n; i++) {
-            allocation[i] = -1;          // default: not allocated
+            allocation[i] = -1;
         }
 
-        // FIRST FIT ALGORITHM
-        for (int i = 0; i < n; i++) {            // for each process
-            for (int j = 0; j < m; j++) {        // check each block
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
                 if (blockSize[j] >= processSize[i]) {
-                    allocation[i] = j;           // allocate block j
-                    blockSize[j] -= processSize[i]; // reduce block size
-                    break;                       // stop after first fit
+                    allocation[i] = j;
+                    blockSize[j] -= processSize[i];
+                    break;
                 }
             }
         }
 
-        // Output Result
         System.out.println("\nProcess\tSize\tBlock");
         for (int i = 0; i < n; i++) {
             System.out.print("P" + (i+1) + "\t" + processSize[i] + "\t");

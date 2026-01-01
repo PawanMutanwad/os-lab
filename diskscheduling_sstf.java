@@ -24,8 +24,7 @@ public class diskscheduling_sstf {
         System.out.print(head);
 
         // SSTF loop – pick closest request each time
-        for (int count = 0; count < n; count++) {
-
+        for (int count = 0; count < n; count++){            
             int idx = -1;
             int minDist = Integer.MAX_VALUE;
 

@@ -8,15 +8,14 @@ public class scheduling_roundrobin {
         System.out.print("Enter number of processes: ");
         int n = sc.nextInt();
 
-        int[] pid = new int[n];  // process id
-        int[] at  = new int[n];  // arrival time
-        int[] bt  = new int[n];  // burst time
-        int[] rt  = new int[n];  // remaining time
-        int[] ct  = new int[n];  // completion time
-        int[] tat = new int[n];  // turn around time
-        int[] wt  = new int[n];  // waiting time
+        int[] pid = new int[n];
+        int[] at  = new int[n];
+        int[] bt  = new int[n];
+        int[] rt  = new int[n];
+        int[] ct  = new int[n];
+        int[] tat = new int[n];
+        int[] wt  = new int[n];
 
-        // Input AT
         System.out.println("Enter arrival times:");
         for (int i = 0; i < n; i++) {
             pid[i] = i + 1;
@@ -24,23 +23,21 @@ public class scheduling_roundrobin {
             at[i] = sc.nextInt();
         }
 
-        // Input BT
         System.out.println("Enter burst times:");
         for (int i = 0; i < n; i++) {
             System.out.print("BT for P" + pid[i] + ": ");
             bt[i] = sc.nextInt();
-            rt[i] = bt[i]; // remaining time initially = burst time
+            rt[i] = bt[i];
         }
 
         System.out.print("Enter Time Quantum: ");
         int tq = sc.nextInt();
 
-        int time = 0;        // current clock time
-        int completed = 0;   // number of processes completed
+        int time = 0;
+        int completed = 0;
         float sumTAT = 0;
         float sumWT = 0;
 
-        // Round Robin loop continues until all processes complete
         while (completed < n) {
             boolean progress = false;
 
@@ -48,15 +45,13 @@ public class scheduling_roundrobin {
 
                 if (rt[i] > 0 && at[i] <= time) {
 
-                    progress = true; // at least one process executed
+                    progress = true;
 
-                    // run the process for min(time quantum, remaining time)
                     int run = Math.min(tq, rt[i]);
 
-                    time += run;     // CPU time increments
-                    rt[i] -= run;    // reduce remaining time
+                    time += run;
+                    rt[i] -= run;
 
-                    // if process finishes
                     if (rt[i] == 0) {
                         ct[i] = time;
                         tat[i] = ct[i] - at[i];
@@ -70,13 +65,11 @@ public class scheduling_roundrobin {
                 }
             }
 
-            // If no process could run (i.e., all arrive later), move time forward
             if (!progress) {
                 time++;
             }
         }
 
-        // Output
         System.out.println();
         System.out.println("PID\tAT\tBT\tCT\tTAT\tWT");
         for (int i = 0; i < n; i++) {
